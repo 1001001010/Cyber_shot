@@ -13,8 +13,21 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('link');
             $table->timestamps();
         });
+        DB::table('categories')->insert([
+            ['name' => 'Видеокарты', 'link' => 'Video_cards'],
+            ['name' => 'Оперативная память', 'link' => 'RAM'],
+            ['name' => 'Материнские платы', 'link' => 'Motherboards'],
+            ['name' => 'HDD', 'link' => 'HDD'],
+            ['name' => 'Процессоры', 'link' => 'Processors'],
+            ['name' => 'Блоки питания', 'link' => 'Power_supplies'],
+            ['name' => 'SSD', 'link' => 'SSD'],
+            ['name' => 'Корпусы', 'link' => 'Cases'],
+            ['name' => 'Прочее', 'link' => 'Other'],
+        ]);
     }
 
     /**

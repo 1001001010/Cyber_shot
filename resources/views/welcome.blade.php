@@ -6,33 +6,11 @@
             <h1>Выберите необходимый вам продукт</h1>
         </div>
         <div class="kat">
-            <div class="kat1">
-                <a href="/pages/katalog.html">Видеокарта</a>
-            </div>
-            <div class="kat1">
-                <a href="">Оперативная память</a>
-            </div>
-            <div class="kat1">
-                <a href="">Материнская плата</a>
-            </div>
-            <div class="kat1">
-                <a href="">HDD</a>
-            </div>
-            <div class="kat1">
-                <a href="">Процессор</a>
-            </div>
-            <div class="kat1">
-                <a href="">Блок питания</a>
-            </div>
-            <div class="kat1">
-                <a href="">SSD</a>
-            </div>
-            <div class="kat1">
-                <a href="">Корпус</a>
-            </div>
-            <div class="kat1">
-                <a href="">Прочее</a>
-            </div>
+            @foreach ($categories as $item)
+                <div class="kat1">
+                    <a href="{{ route('OpenCategory', ['category_name' => $item->link]) }}">{{ $item->name }}</a>
+                </div>
+            @endforeach
         </div>
         <div class="ads">
             <img src="{{ asset('img/amd.png') }}" alt="">
