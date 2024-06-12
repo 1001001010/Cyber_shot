@@ -25,12 +25,18 @@
             </div>
             <h2 class="ff_fs">Редактирование</h2>
             <div class="block_3">
-                <form id="avatar-file-form" method="POST" enctype="multipart/form-data" action="{{ route('NewAvatar') }}">
-                    @csrf
-                    @method('PUT')
-                    <input type="file" class="custom-file-input" name="avatar_change" id="avatar_change">
-                </form>
+                <button type="button">
+                    <form id="avatar-file-form" method="POST" enctype="multipart/form-data"
+                        action="{{ route('NewAvatar') }}">
+                        @csrf
+                        @method('PUT')
+                        <input type="file" class="custom-file-input" name="avatar_change" id="avatar_change">
+                    </form>
+                </button>
                 <button>Изменить имя</button>
+                @if (Auth::user()->is_admin == 1)
+                    <button type="button"><a href="{{ route('OpenAdmin') }}">Панель управления</a></button>
+                @endif
             </div>
         </div>
 
