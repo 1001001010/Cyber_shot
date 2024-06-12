@@ -33,7 +33,7 @@
                         <input type="file" class="custom-file-input" name="avatar_change" id="avatar_change">
                     </form>
                 </button>
-                <button>Изменить имя</button>
+                <button id="editUsername">Изменить имя</button>
                 @if (Auth::user()->is_admin == 1)
                     <button type="button"><a href="{{ route('OpenAdmin') }}">Панель управления</a></button>
                 @endif
@@ -42,41 +42,23 @@
 
         <div class="block_lk2">
             <div class="text_login">
-                <h2>История покупок</h2>
-                <div class="pok_block">
-                    <div class="pokypka">
-                        <img src="/img/tovar.png" alt="">
-                        <div class="pok_tovar">
-                            <a href="/pages/katalog.html">Видеокарта ASUS GeForce RTX 4080 ProArt OC edition
-                                [PROART-RTX4080-O16G]</a>
-                            <h1>165.999 ₽</h1>
-                        </div>
+                @if (count($buy_product) > 0)
+                    <h2>История покупок</h2>
+                    <div class="pok_block">
+                        @foreach ($buy_product as $item)
+                            <div class="pokypka">
+                                <img src="{{ asset($item->product->photo) }}" alt="">
+                                <div class="pok_tovar">
+                                    <a
+                                        href="{{ route('OpenProduct', ['product_id' => $item->product->id]) }}">{{ $item->product->name }}</a>
+                                    <h1>{{ $item->product->price }} ₽</h1>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
-                    <div class="pokypka">
-                        <img src="/img/tovar.png" alt="">
-                        <div class="pok_tovar">
-                            <a href="/pages/katalog.html">Видеокарта ASUS GeForce RTX 4080 ProArt OC edition
-                                [PROART-RTX4080-O16G]</a>
-                            <h1>165.999 ₽</h1>
-                        </div>
-                    </div>
-                    <div class="pokypka">
-                        <img src="/img/tovar.png" alt="">
-                        <div class="pok_tovar">
-                            <a href="/pages/katalog.html">Видеокарта ASUS GeForce RTX 4080 ProArt OC edition
-                                [PROART-RTX4080-O16G]</a>
-                            <h1>165.999 ₽</h1>
-                        </div>
-                    </div>
-                    <div class="pokypka">
-                        <img src="/img/tovar.png" alt="">
-                        <div class="pok_tovar">
-                            <a href="/pages/katalog.html">Видеокарта ASUS GeForce RTX 4080 ProArt OC edition
-                                [PROART-RTX4080-O16G]</a>
-                            <h1>165.999 ₽</h1>
-                        </div>
-                    </div>
-                </div>
+                @else
+                    <h2>Вы еще не совершали покупок</h2>
+                @endif
             </div>
         </div>
     </div>
@@ -84,5 +66,27 @@
         document.getElementById('avatar_change').addEventListener('change', function() {
             document.getElementById('avatar-file-form').submit();
         });
+
+        const reworkUsernameBtn = document.getElementById('editUsername');
+        reworkUsernameBtn.addEventListener('click', editUsername);
+
+        function editUsername() {
+            let result2 = prompt("Введите новое имя");
+            const form2 = document.createElement('form');
+            form2.method = 'POST';
+            form2.action = `/edit_name`;
+            const csrfField2 = document.createElement('input');
+            csrfField2.type = 'hidden';
+            csrfField2.name = '_token';
+            csrfField2.value = '{{ csrf_token() }}';
+            const numberField2 = document.createElement('input');
+            numberField2.type = 'hidden';
+            numberField2.name = 'username';
+            numberField2.value = result2;
+            form2.appendChild(csrfField2);
+            form2.appendChild(numberField2);
+            document.body.appendChild(form2);
+            form2.submit();
+        }
     </script>
 @endsection

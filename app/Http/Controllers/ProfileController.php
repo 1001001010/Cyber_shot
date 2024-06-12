@@ -9,12 +9,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\User;
+use App\Models\Buy;
 
 class ProfileController extends Controller
 {
     public function profile()
     {
-        return view('profile');    
+        $buy_product = Buy::with('product')->where('user_id', Auth::user()->id)->get();
+        return view('profile', ['buy_product'=>$buy_product]);    
     }
     public function avatar(Request $request)
     {
@@ -35,6 +37,14 @@ class ProfileController extends Controller
             'photo' => 'storage/avatars/' . $name
         ]);
     
+        return redirect()->back();
+    }
+    public function edit_name(Request $request)
+    {
+        $validatedData = $request->validate([
+            'username' => 'required|string',
+        ]);
+        User::where('id', Auth::user()->id)->update(['name' => $request->username]);
         return redirect()->back();
     }
 }
