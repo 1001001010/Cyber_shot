@@ -12,9 +12,9 @@ Route::get('/profile', [ProfileController::class, 'profile'])->name('profile')->
 
 Route::get('/category/{category_name}', [HomeController::class, 'open_category'])->name('OpenCategory');
 
-Route::get('/product/{product_id}', [HomeController::class, 'open_product'])->name('OpenProduct');
+Route::get('/product/{product_id}', [HomeController::class, 'open_product'])->name('OpenProduct')->middleware(['auth', 'verified']);
 
-Route::get('/buy/{product_id}', [HomeController::class, 'buy_product'])->name('BuyProduct');
+Route::get('/buy/{product_id}', [HomeController::class, 'buy_product'])->name('BuyProduct')->middleware(['auth', 'verified']);
 
 Route::put('/new_avatar', [ProfileController::class, 'avatar'])->name('NewAvatar')->middleware(['auth']);
 
