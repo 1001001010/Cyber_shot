@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\User;
+use App\Models\Basket;
 use App\Models\Buy;
 
 class ProfileController extends Controller
@@ -45,6 +46,22 @@ class ProfileController extends Controller
             'username' => 'required|string',
         ]);
         User::where('id', Auth::user()->id)->update(['name' => $request->username]);
+        return redirect()->back();
+    }
+
+    public function basket_open()
+    {
+        $basket = Basket::with('product')->where('user_id', Auth::user()->id)->get();
+        return view('basket', ['basket' => $basket]);
+    }
+
+    public function add_basket($tovar_id)
+    {
+        $data = [
+            'user_id' => Auth::user()->id,
+            'product_id' => $tovar_id,
+        ];
+        Basket::create($data);
         return redirect()->back();
     }
 }

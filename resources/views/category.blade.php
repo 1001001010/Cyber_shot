@@ -16,7 +16,8 @@
                             <div class="butt_tovar">
                                 <a href="{{ route('OpenProduct', ['product_id' => $item->id]) }}"><button
                                         class="col_butt">Подробнее</button></a>
-                                <a href="/pages/katalog.html"><button class="butt_color">В корзину</button></a>
+                                <a href="{{ route('AddBasket', ['tovar_id' => $item->id]) }}"><button class="butt_color">В
+                                        корзину</button></a>
                             </div>
                         </div>
                     </div>

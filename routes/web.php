@@ -20,8 +20,12 @@ Route::put('/new_avatar', [ProfileController::class, 'avatar'])->name('NewAvatar
 
 Route::post('/admin/product/add', [AdminController::class, 'addProduct'])->name('AddProduct')->middleware(IsAdmin::class);
 
-Route::post('/edit_name', [ProfileController::class, 'edit_name'])->name('EditName');
+Route::post('/edit_name', [ProfileController::class, 'edit_name'])->name('EditName')->middleware(['auth']);
 
-Route::get('/admin', [AdminController::class, 'index'])->name('OpenAdmin')->middleware(IsAdmin::class);
+Route::get('/admin', [AdminController::class, 'index'])->name('OpenAdmin')->middleware(IsAdmin::class, 'auth');
+
+Route::get('/basket', [ProfileController::class, 'basket_open'])->name('Basket')->middleware(['auth']);
+
+Route::get('/basket/{tovar_id}', [ProfileController::class, 'add_basket'])->name('AddBasket')->middleware(['auth']);
 
 require __DIR__.'/auth.php';
