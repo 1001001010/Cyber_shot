@@ -22,7 +22,13 @@ Route::post('/admin/product/add', [AdminController::class, 'addProduct'])->name(
 
 Route::post('/edit_name', [ProfileController::class, 'edit_name'])->name('EditName')->middleware(['auth']);
 
+Route::get('/open_edit/{product_id}', [AdminController::class, 'open_edit_product'])->name('OpenEditProduct')->middleware(IsAdmin::class, 'auth');
+
+Route::post('/edit/{product_id}', [AdminController::class, 'edit_product'])->name('EditProduct')->middleware(IsAdmin::class, 'auth');
+
 Route::get('/admin', [AdminController::class, 'index'])->name('OpenAdmin')->middleware(IsAdmin::class, 'auth');
+
+Route::get('/admin/delete/{product_id}', [AdminController::class, 'delete'])->name('DeleteProduct')->middleware(IsAdmin::class, 'auth');
 
 Route::get('/basket', [ProfileController::class, 'basket_open'])->name('Basket')->middleware(['auth']);
 

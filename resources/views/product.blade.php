@@ -10,10 +10,16 @@
                 <div class="block_img">
                     <img src="{{ asset($product->photo) }}" alt="">
                 </div>
-                <div class="block_text">
+                <div class="block_text" style="gap: 5px">
                     <p class="fs_24">{{ $product->price }} ₽</p>
                     <a href="{{ route('BuyProduct', ['product_id' => $product->id]) }}"><button
                             class="butt_color">Купить</button></a>
+                    @if (Auth::user() and Auth::user()->is_admin == 1)
+                        <a href="{{ route('DeleteProduct', ['product_id' => $product->id]) }}"><button
+                                class="butt_color">Удалить</button></a>
+                        <a href="{{ route('OpenEditProduct', ['product_id' => $product->id]) }}"><button
+                                class="butt_color">Редактировать</button></a>
+                    @endif
                 </div>
             </div>
             <div class="info_two">
