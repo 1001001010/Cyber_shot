@@ -37,6 +37,17 @@
                 @if (Auth::user()->is_admin == 1)
                     <button type="button"><a href="{{ route('OpenAdmin') }}">Панель управления</a></button>
                 @endif
+                <button>
+                    <a href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+            document.getElementById('logout-form').submit();"
+                        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                        Выйти
+                    </a>
+                </button>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                    @csrf
+                </form>
             </div>
         </div>
 
