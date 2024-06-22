@@ -1,16 +1,16 @@
-@extends('layouts.app')
+@extends('layouts.app') {{-- Указание макета, унаследованного этим представлением --}}
 
-@section('content')
+@section('content') {{-- Опеределяем секцию контента --}}
     <main class="menu">
         <div class="menu_text">
             <h1>Выберите необходимый вам продукт</h1>
         </div>
         <div class="kat">
-            @foreach ($categories as $item)
+            @foreach ($categories as $item) {{-- Перебираем все категории через цикл --}}
                 <div class="kat1">
-                    <a href="{{ route('OpenCategory', ['category_name' => $item->link]) }}">{{ $item->name }}</a>
+                    <a href="{{ route('OpenCategory', ['category_name' => $item->link]) }}">{{ $item->name }}</a> {{-- Ссылка на открытие категории, в которой мы передаем ссылку на категорию, а в название выводим название категории --}}
                 </div>
-            @endforeach
+            @endforeach {{-- Конец цикла --}}
         </div>
         <div class="ads">
             <img src="{{ asset('img/amd.png') }}" alt="">
@@ -24,4 +24,4 @@
             </p>
         </div>
     </main>
-@endsection
+@endsection {{-- Закрываем секцию контента --}}
